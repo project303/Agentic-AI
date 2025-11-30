@@ -1,0 +1,882 @@
+{
+  "nodes": [
+    {
+      "id": "llmChain_0",
+      "position": {
+        "x": 1307.7697090692611,
+        "y": 397.9448458538785
+      },
+      "type": "customNode",
+      "data": {
+        "id": "llmChain_0",
+        "label": "LLM Chain",
+        "version": 3,
+        "name": "llmChain",
+        "type": "LLMChain",
+        "baseClasses": [
+          "LLMChain",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Chains",
+        "description": "Chain to run queries against LLMs",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "chainName",
+            "type": "string",
+            "placeholder": "Name Your Chain",
+            "optional": true,
+            "id": "llmChain_0-input-chainName-string",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Language Model",
+            "name": "model",
+            "type": "BaseLanguageModel",
+            "id": "llmChain_0-input-model-BaseLanguageModel",
+            "display": true
+          },
+          {
+            "label": "Prompt",
+            "name": "prompt",
+            "type": "BasePromptTemplate",
+            "id": "llmChain_0-input-prompt-BasePromptTemplate",
+            "display": true
+          },
+          {
+            "label": "Output Parser",
+            "name": "outputParser",
+            "type": "BaseLLMOutputParser",
+            "optional": true,
+            "id": "llmChain_0-input-outputParser-BaseLLMOutputParser",
+            "display": true
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "llmChain_0-input-inputModeration-Moderation",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "model": "{{ollama_0.data.instance}}",
+          "prompt": "{{promptTemplate_1.data.instance}}",
+          "outputParser": "",
+          "inputModeration": "",
+          "chainName": ""
+        },
+        "outputAnchors": [
+          {
+            "name": "output",
+            "label": "Output",
+            "type": "options",
+            "description": "",
+            "options": [
+              {
+                "id": "llmChain_0-output-llmChain-LLMChain|BaseChain|Runnable",
+                "name": "llmChain",
+                "label": "LLM Chain",
+                "description": "",
+                "type": "LLMChain | BaseChain | Runnable"
+              },
+              {
+                "id": "llmChain_0-output-outputPrediction-string|json",
+                "name": "outputPrediction",
+                "label": "Output Prediction",
+                "description": "",
+                "type": "string | json"
+              }
+            ],
+            "default": "llmChain"
+          }
+        ],
+        "outputs": {
+          "output": "llmChain"
+        },
+        "selected": false
+      },
+      "width": 300,
+      "height": 514,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1307.7697090692611,
+        "y": 397.9448458538785
+      },
+      "dragging": false
+    },
+    {
+      "id": "promptTemplate_0",
+      "position": {
+        "x": -49.09600804374571,
+        "y": 639.6104092642556
+      },
+      "type": "customNode",
+      "data": {
+        "id": "promptTemplate_0",
+        "label": "Prompt Template",
+        "version": 1,
+        "name": "promptTemplate",
+        "type": "PromptTemplate",
+        "baseClasses": [
+          "PromptTemplate",
+          "BaseStringPromptTemplate",
+          "BasePromptTemplate",
+          "Runnable"
+        ],
+        "category": "Prompts",
+        "description": "Schema to represent a basic prompt for an LLM",
+        "inputParams": [
+          {
+            "label": "Template",
+            "name": "template",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "What is a good name for a company that makes {product}?",
+            "id": "promptTemplate_0-input-template-string",
+            "display": true
+          },
+          {
+            "label": "Format Prompt Values",
+            "name": "promptValues",
+            "type": "json",
+            "optional": true,
+            "acceptVariable": true,
+            "list": true,
+            "id": "promptTemplate_0-input-promptValues-json",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "template": "You are a helpful assistant that determines the sentiment of text. Respond with only 'positive', 'negative', or 'neutral'.\n{sentence}",
+          "promptValues": "{\"sentence\":\"{{question}}\"}"
+        },
+        "outputAnchors": [
+          {
+            "id": "promptTemplate_0-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable",
+            "name": "promptTemplate",
+            "label": "PromptTemplate",
+            "description": "Schema to represent a basic prompt for an LLM",
+            "type": "PromptTemplate | BaseStringPromptTemplate | BasePromptTemplate | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 519,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -49.09600804374571,
+        "y": 639.6104092642556
+      },
+      "dragging": false
+    },
+    {
+      "id": "structuredOutputParser_0",
+      "position": {
+        "x": 322.9156195563335,
+        "y": 269.8451073616408
+      },
+      "type": "customNode",
+      "data": {
+        "id": "structuredOutputParser_0",
+        "label": "Structured Output Parser",
+        "version": 1,
+        "name": "structuredOutputParser",
+        "type": "StructuredOutputParser",
+        "baseClasses": [
+          "StructuredOutputParser",
+          "BaseLLMOutputParser",
+          "Runnable"
+        ],
+        "category": "Output Parsers",
+        "description": "Parse the output of an LLM call into a given (JSON) structure.",
+        "inputParams": [
+          {
+            "label": "Autofix",
+            "name": "autofixParser",
+            "type": "boolean",
+            "optional": true,
+            "description": "In the event that the first call fails, will make another call to the model to fix any errors.",
+            "id": "structuredOutputParser_0-input-autofixParser-boolean",
+            "display": true
+          },
+          {
+            "label": "JSON Structure",
+            "name": "jsonStructure",
+            "type": "datagrid",
+            "description": "JSON structure for LLM to return",
+            "datagrid": [
+              {
+                "field": "property",
+                "headerName": "Property",
+                "editable": true
+              },
+              {
+                "field": "type",
+                "headerName": "Type",
+                "type": "singleSelect",
+                "valueOptions": [
+                  "string",
+                  "number",
+                  "boolean"
+                ],
+                "editable": true
+              },
+              {
+                "field": "description",
+                "headerName": "Description",
+                "editable": true,
+                "flex": 1
+              }
+            ],
+            "default": [
+              {
+                "property": "answer",
+                "type": "string",
+                "description": "answer to the user's question"
+              },
+              {
+                "property": "source",
+                "type": "string",
+                "description": "sources used to answer the question, should be websites"
+              }
+            ],
+            "additionalParams": true,
+            "id": "structuredOutputParser_0-input-jsonStructure-datagrid",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "autofixParser": "",
+          "jsonStructure": "[{\"property\":\"sentiment\",\"type\":\"string\",\"description\":\"sentiment is positive, negative, or neutral\",\"actions\":\"\",\"id\":1}]"
+        },
+        "outputAnchors": [
+          {
+            "id": "structuredOutputParser_0-output-structuredOutputParser-StructuredOutputParser|BaseLLMOutputParser|Runnable",
+            "name": "structuredOutputParser",
+            "label": "StructuredOutputParser",
+            "description": "Parse the output of an LLM call into a given (JSON) structure.",
+            "type": "StructuredOutputParser | BaseLLMOutputParser | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 335,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 322.9156195563335,
+        "y": 269.8451073616408
+      }
+    },
+    {
+      "id": "chatGoogleGenerativeAI_0",
+      "position": {
+        "x": -53.89552562141064,
+        "y": -69.23465061485231
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatGoogleGenerativeAI_0",
+        "label": "ChatGoogleGenerativeAI",
+        "version": 3.1,
+        "name": "chatGoogleGenerativeAI",
+        "type": "ChatGoogleGenerativeAI",
+        "baseClasses": [
+          "ChatGoogleGenerativeAI",
+          "LangchainChatGoogleGenerativeAI",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around Google Gemini large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleGenerativeAI"
+            ],
+            "optional": false,
+            "description": "Google Generative AI credential.",
+            "id": "chatGoogleGenerativeAI_0-input-credential-credential",
+            "display": true
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "gemini-1.5-flash-latest",
+            "id": "chatGoogleGenerativeAI_0-input-modelName-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Custom Model Name",
+            "name": "customModelName",
+            "type": "string",
+            "placeholder": "gemini-1.5-pro-exp-0801",
+            "description": "Custom model name to use. If provided, it will override the model selected",
+            "additionalParams": true,
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_0-input-customModelName-string",
+            "display": true
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_0-input-temperature-number",
+            "display": true
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-streaming-boolean",
+            "display": true
+          },
+          {
+            "label": "Max Output Tokens",
+            "name": "maxOutputTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-maxOutputTokens-number",
+            "display": true
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-topP-number",
+            "display": true
+          },
+          {
+            "label": "Top Next Highest Probability Tokens",
+            "name": "topK",
+            "type": "number",
+            "description": "Decode using top-k sampling: consider the set of top_k most probable tokens. Must be positive",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-topK-number",
+            "display": true
+          },
+          {
+            "label": "Safety Settings",
+            "name": "safetySettings",
+            "type": "array",
+            "description": "Safety settings for the model. Refer to the <a href=\"https://ai.google.dev/gemini-api/docs/safety-settings\">official guide</a> on how to use Safety Settings",
+            "array": [
+              {
+                "label": "Harm Category",
+                "name": "harmCategory",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "Dangerous",
+                    "name": "HARM_CATEGORY_DANGEROUS_CONTENT",
+                    "description": "Promotes, facilitates, or encourages harmful acts."
+                  },
+                  {
+                    "label": "Harassment",
+                    "name": "HARM_CATEGORY_HARASSMENT",
+                    "description": "Negative or harmful comments targeting identity and/or protected attributes."
+                  },
+                  {
+                    "label": "Hate Speech",
+                    "name": "HARM_CATEGORY_HATE_SPEECH",
+                    "description": "Content that is rude, disrespectful, or profane."
+                  },
+                  {
+                    "label": "Sexually Explicit",
+                    "name": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                    "description": "Contains references to sexual acts or other lewd content."
+                  },
+                  {
+                    "label": "Civic Integrity",
+                    "name": "HARM_CATEGORY_CIVIC_INTEGRITY",
+                    "description": "Election-related queries."
+                  }
+                ]
+              },
+              {
+                "label": "Harm Block Threshold",
+                "name": "harmBlockThreshold",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "None",
+                    "name": "BLOCK_NONE",
+                    "description": "Always show regardless of probability of unsafe content"
+                  },
+                  {
+                    "label": "Only High",
+                    "name": "BLOCK_ONLY_HIGH",
+                    "description": "Block when high probability of unsafe content"
+                  },
+                  {
+                    "label": "Medium and Above",
+                    "name": "BLOCK_MEDIUM_AND_ABOVE",
+                    "description": "Block when medium or high probability of unsafe content"
+                  },
+                  {
+                    "label": "Low and Above",
+                    "name": "BLOCK_LOW_AND_ABOVE",
+                    "description": "Block when low, medium or high probability of unsafe content"
+                  },
+                  {
+                    "label": "Threshold Unspecified (Default Threshold)",
+                    "name": "HARM_BLOCK_THRESHOLD_UNSPECIFIED",
+                    "description": "Threshold is unspecified, block using default threshold"
+                  }
+                ]
+              }
+            ],
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-safetySettings-array",
+            "display": true
+          },
+          {
+            "label": "Thinking Budget",
+            "name": "thinkingBudget",
+            "type": "number",
+            "description": "Guides the number of thinking tokens. -1 for dynamic, 0 to disable, or positive integer (Gemini 2.5 models).",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "show": {
+              "modelName": [
+                "gemini-2.5-pro",
+                "gemini-2.5-flash",
+                "gemini-2.5-flash-lite"
+              ]
+            },
+            "id": "chatGoogleGenerativeAI_0-input-thinkingBudget-number",
+            "display": true
+          },
+          {
+            "label": "Base URL",
+            "name": "baseUrl",
+            "type": "string",
+            "description": "Base URL for the API. Leave empty to use the default.",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-baseUrl-string",
+            "display": true
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Allow image input. Refer to the <a href=\"https://docs.flowiseai.com/using-flowise/uploads#image\" target=\"_blank\">docs</a> for more details.",
+            "default": false,
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_0-input-allowImageUploads-boolean",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_0-input-cache-BaseCache",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "gemini-2.5-flash",
+          "customModelName": "",
+          "temperature": "0.7",
+          "streaming": true,
+          "maxOutputTokens": "",
+          "topP": "",
+          "topK": "",
+          "safetySettings": "",
+          "thinkingBudget": "",
+          "baseUrl": "",
+          "allowImageUploads": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatGoogleGenerativeAI_0-output-chatGoogleGenerativeAI-ChatGoogleGenerativeAI|LangchainChatGoogleGenerativeAI|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatGoogleGenerativeAI",
+            "label": "ChatGoogleGenerativeAI",
+            "description": "Wrapper around Google Gemini large language models that use the Chat endpoint",
+            "type": "ChatGoogleGenerativeAI | LangchainChatGoogleGenerativeAI | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 676,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -53.89552562141064,
+        "y": -69.23465061485231
+      },
+      "dragging": false
+    },
+    {
+      "id": "promptTemplate_1",
+      "position": {
+        "x": 795.782296088466,
+        "y": 623.9979777149454
+      },
+      "type": "customNode",
+      "data": {
+        "id": "promptTemplate_1",
+        "label": "Prompt Template",
+        "version": 1,
+        "name": "promptTemplate",
+        "type": "PromptTemplate",
+        "baseClasses": [
+          "PromptTemplate",
+          "BaseStringPromptTemplate",
+          "BasePromptTemplate",
+          "Runnable"
+        ],
+        "category": "Prompts",
+        "description": "Schema to represent a basic prompt for an LLM",
+        "inputParams": [
+          {
+            "label": "Template",
+            "name": "template",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "What is a good name for a company that makes {product}?",
+            "id": "promptTemplate_1-input-template-string",
+            "display": true
+          },
+          {
+            "label": "Format Prompt Values",
+            "name": "promptValues",
+            "type": "json",
+            "optional": true,
+            "acceptVariable": true,
+            "list": true,
+            "id": "promptTemplate_1-input-promptValues-json",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "template": "Kamu adalah asisten ai untuk menentukan sentimen dari text masukan. Respons hanya 'positive', 'negative', or 'neutral'\n\n{sentence}\n",
+          "promptValues": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "promptTemplate_1-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable",
+            "name": "promptTemplate",
+            "label": "PromptTemplate",
+            "description": "Schema to represent a basic prompt for an LLM",
+            "type": "PromptTemplate | BaseStringPromptTemplate | BasePromptTemplate | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 519,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 795.782296088466,
+        "y": 623.9979777149454
+      },
+      "dragging": false
+    },
+    {
+      "id": "ollama_0",
+      "position": {
+        "x": 798.2647178668764,
+        "y": -61.597268976575805
+      },
+      "type": "customNode",
+      "data": {
+        "id": "ollama_0",
+        "label": "Ollama",
+        "version": 2,
+        "name": "ollama",
+        "type": "Ollama",
+        "baseClasses": [
+          "Ollama",
+          "LLM",
+          "BaseLLM",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "LLMs",
+        "description": "Wrapper around open source large language models on Ollama",
+        "inputParams": [
+          {
+            "label": "Base URL",
+            "name": "baseUrl",
+            "type": "string",
+            "default": "http://localhost:11434",
+            "id": "ollama_0-input-baseUrl-string",
+            "display": true
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "string",
+            "placeholder": "llama2",
+            "id": "ollama_0-input-modelName-string",
+            "display": true
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "description": "The temperature of the model. Increasing the temperature will make the model answer more creatively. (Default: 0.8). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "ollama_0-input-temperature-number",
+            "display": true
+          },
+          {
+            "label": "Top P",
+            "name": "topP",
+            "type": "number",
+            "description": "Works together with top-k. A higher value (e.g., 0.95) will lead to more diverse text, while a lower value (e.g., 0.5) will generate more focused and conservative text. (Default: 0.9). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-topP-number",
+            "display": true
+          },
+          {
+            "label": "Top K",
+            "name": "topK",
+            "type": "number",
+            "description": "Reduces the probability of generating nonsense. A higher value (e.g. 100) will give more diverse answers, while a lower value (e.g. 10) will be more conservative. (Default: 40). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-topK-number",
+            "display": true
+          },
+          {
+            "label": "Mirostat",
+            "name": "mirostat",
+            "type": "number",
+            "description": "Enable Mirostat sampling for controlling perplexity. (default: 0, 0 = disabled, 1 = Mirostat, 2 = Mirostat 2.0). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-mirostat-number",
+            "display": true
+          },
+          {
+            "label": "Mirostat ETA",
+            "name": "mirostatEta",
+            "type": "number",
+            "description": "Influences how quickly the algorithm responds to feedback from the generated text. A lower learning rate will result in slower adjustments, while a higher learning rate will make the algorithm more responsive. (Default: 0.1) Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-mirostatEta-number",
+            "display": true
+          },
+          {
+            "label": "Mirostat TAU",
+            "name": "mirostatTau",
+            "type": "number",
+            "description": "Controls the balance between coherence and diversity of the output. A lower value will result in more focused and coherent text. (Default: 5.0) Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-mirostatTau-number",
+            "display": true
+          },
+          {
+            "label": "Context Window Size",
+            "name": "numCtx",
+            "type": "number",
+            "description": "Sets the size of the context window used to generate the next token. (Default: 2048) Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-numCtx-number",
+            "display": true
+          },
+          {
+            "label": "Number of GQA groups",
+            "name": "numGqa",
+            "type": "number",
+            "description": "The number of GQA groups in the transformer layer. Required for some models, for example it is 8 for llama2:70b. Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-numGqa-number",
+            "display": true
+          },
+          {
+            "label": "Number of GPU",
+            "name": "numGpu",
+            "type": "number",
+            "description": "The number of layers to send to the GPU(s). On macOS it defaults to 1 to enable metal support, 0 to disable. Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-numGpu-number",
+            "display": true
+          },
+          {
+            "label": "Number of Thread",
+            "name": "numThread",
+            "type": "number",
+            "description": "Sets the number of threads to use during computation. By default, Ollama will detect this for optimal performance. It is recommended to set this value to the number of physical CPU cores your system has (as opposed to the logical number of cores). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-numThread-number",
+            "display": true
+          },
+          {
+            "label": "Repeat Last N",
+            "name": "repeatLastN",
+            "type": "number",
+            "description": "Sets how far back for the model to look back to prevent repetition. (Default: 64, 0 = disabled, -1 = num_ctx). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-repeatLastN-number",
+            "display": true
+          },
+          {
+            "label": "Repeat Penalty",
+            "name": "repeatPenalty",
+            "type": "number",
+            "description": "Sets how strongly to penalize repetitions. A higher value (e.g., 1.5) will penalize repetitions more strongly, while a lower value (e.g., 0.9) will be more lenient. (Default: 1.1). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-repeatPenalty-number",
+            "display": true
+          },
+          {
+            "label": "Stop Sequence",
+            "name": "stop",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "AI assistant:",
+            "description": "Sets the stop sequences to use. Use comma to seperate different sequences. Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-stop-string",
+            "display": true
+          },
+          {
+            "label": "Tail Free Sampling",
+            "name": "tfsZ",
+            "type": "number",
+            "description": "Tail free sampling is used to reduce the impact of less probable tokens from the output. A higher value (e.g., 2.0) will reduce the impact more, while a value of 1.0 disables this setting. (Default: 1). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "ollama_0-input-tfsZ-number",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "ollama_0-input-cache-BaseCache",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "baseUrl": "http://host.docker.internal:11434",
+          "modelName": "qwen3:0.6b",
+          "temperature": "0.8",
+          "topP": "",
+          "topK": "",
+          "mirostat": "",
+          "mirostatEta": "",
+          "mirostatTau": "",
+          "numCtx": "",
+          "numGqa": "",
+          "numGpu": "",
+          "numThread": "",
+          "repeatLastN": "",
+          "repeatPenalty": "",
+          "stop": "",
+          "tfsZ": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "ollama_0-output-ollama-Ollama|LLM|BaseLLM|BaseLanguageModel|Runnable",
+            "name": "ollama",
+            "label": "Ollama",
+            "description": "Wrapper around open source large language models on Ollama",
+            "type": "Ollama | LLM | BaseLLM | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 586,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 798.2647178668764,
+        "y": -61.597268976575805
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "ollama_0",
+      "sourceHandle": "ollama_0-output-ollama-Ollama|LLM|BaseLLM|BaseLanguageModel|Runnable",
+      "target": "llmChain_0",
+      "targetHandle": "llmChain_0-input-model-BaseLanguageModel",
+      "type": "buttonedge",
+      "id": "ollama_0-ollama_0-output-ollama-Ollama|LLM|BaseLLM|BaseLanguageModel|Runnable-llmChain_0-llmChain_0-input-model-BaseLanguageModel"
+    },
+    {
+      "source": "promptTemplate_1",
+      "sourceHandle": "promptTemplate_1-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable",
+      "target": "llmChain_0",
+      "targetHandle": "llmChain_0-input-prompt-BasePromptTemplate",
+      "type": "buttonedge",
+      "id": "promptTemplate_1-promptTemplate_1-output-promptTemplate-PromptTemplate|BaseStringPromptTemplate|BasePromptTemplate|Runnable-llmChain_0-llmChain_0-input-prompt-BasePromptTemplate"
+    }
+  ]
+}
