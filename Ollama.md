@@ -87,12 +87,12 @@ versi docker
 docker exec -it ollama ollama run mistral
 ```
 
-Setelah itu, Kita bisa langsung mengetik pertanyaan dan Ollama akan menjawab seperti menggunakan ChatGPT—tapi sepenuhnya berjalan di komputer Anda sendiri.
+Setelah itu, Kita bisa langsung mengetik pertanyaan dan Ollama akan menjawab seperti menggunakan ChatGPT, tapi sepenuhnya berjalan di komputer Kita sendiri.
 
 
 ## **Kapan Ollama Cocok Digunakan?**
 
-Ollama adalah pilihan tepat jika Anda ingin:
+Ollama adalah pilihan tepat jika ingin:
 
 🔹 **Eksperimen AI** tanpa biaya bulanan </br>
 🔹 **Membangun chatbot internal** untuk perusahaan  </br>
