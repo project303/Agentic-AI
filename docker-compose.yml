@@ -1,0 +1,46 @@
+services:
+    flowise:
+      container_name: flowise-ai
+      image: flowiseai/flowise
+      restart: always
+      environment:
+            - PORT=3000
+            - CORS_ORIGINS=*
+            - IFRAME_ORIGINS=*
+            - FLOWISE_USERNAME=admin
+            - FLOWISE_PASSWORD=Admin247#
+            - DATABASE_PATH=/root/.flowise
+            - APIKEY_PATH=/root/.flowise
+            - SECRETKEY_PATH=/root/.flowise
+            - LOG_PATH=/root/.flowise/logs
+            - BLOB_STORAGE_PATH=/root/.flowise/storage
+      ports:
+            - '3000:3000'
+      volumes:
+            - ./data/flowise:/root/.flowise
+      entrypoint: /bin/sh -c "sleep 3; flowise start"
+
+    ollama:
+      container_name: ollama
+      image: ollama/ollama:latest
+      environment:
+            - OLLAMA_HOST=0.0.0.0
+      ports:
+            - 11434:11434
+      volumes:
+            - ./data/ollama-code:/code
+            - ./data/ollama:/root/.ollama
+
+    open-webui:
+      container_name: open-webui
+      image: ghcr.io/open-webui/open-webui:main
+      restart: always
+      ports:
+            - 8080:8080
+      extra_hosts:
+            - host.docker.internal:host-gateway
+      volumes:
+            - ./data/open-webui:/app/backend/data
+
+      
+
