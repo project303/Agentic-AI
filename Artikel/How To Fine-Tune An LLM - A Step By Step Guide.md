@@ -1,7 +1,7 @@
 # How To Fine-Tune An LLM - A Step By Step Guide
 Artikel ini memberikan panduan komprehensif mengenai fine-tuning pada Large Language Model (LLM), sebuah proses adaptasi model umum menjadi ahli spesialis. Penjelasan ini mencakup perbandingan antara fine-tuning, RAG, dan prompt engineering, serta menyarankan pendekatan hibrida untuk hasil yang optimal. Fokus utama diberikan pada teknik efisien seperti LoRA dan QLoRA yang memungkinkan penggunaan perangkat keras tingkat konsumen dengan mengurangi kebutuhan memori secara signifikan melalui kuantisasi 4-bit.
 
-## Apa itu Fine-tue?
+## Apa itu Fine-Tune?
 Fine-tuning adalah bentuk transfer learning yang mengadaptasi pemahaman umum sebuah model untuk melakukan tugas-tugas yang lebih spesifik dan tertarget dengan akurasi yang lebih tinggi. Proses ini dilakukan dengan mengambil model bahasa besar yang sudah dilatih sebelumnya (pre-trained) dan melatihnya kembali secara terbatas pada dataset khusus agar performanya meningkat pada domain tertentu. Secara teknis, fine-tuning bekerja dengan menyesuaikan bobot (weights) model agar lebih sesuai dengan tugas spesifik yang diberikan
 
 Beberapa manfaat (benefit) utama dari fine-tuning:
@@ -13,7 +13,7 @@ Beberapa manfaat (benefit) utama dari fine-tuning:
 - **Efisiensi Pelatihan:** Melakukan fine-tuning jauh lebih efisien dan membutuhkan daya komputasi yang lebih kecil dibandingkan melatih model dari awal (from scratch)
 
 
-## Perbedaan Antara Fine-tuning, RAG, dan Prompt Engineering
+## Perbedaan Antara Fine-Tuning, RAG, dan Prompt Engineering
 
 ### 1. Fine-Tuning
 **Mekanisme:** <br>
@@ -49,7 +49,7 @@ Dalam artikel ini menyarankan bahwa cara terbaik untuk mendapatkan performa opti
 - Fine-tuning membantu model memahami domain dan cara berkomunikasi secara mendalam
 - sementara RAG menyediakan data eksternal terbaru yang tidak ada dalam data pelatihan awal model tersebut
 
-##  Tahapan Utama Fine-tuning LLM
+##  Tahapan Utama Fine-Tuning LLM
 
 ### Environment Set up
 Konfigurasi notenook yang digunakan:
